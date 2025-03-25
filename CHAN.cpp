@@ -1,15 +1,20 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 
 using namespace std;
 
 /*
+CODE PARTS:
 • Structure
+• QUIT FUNCTION
+• Display (Sorted) FUNCTION
 • Insertion (Add Data)
 • Deletion (Remove Data)
-• Search
-• Sorting (If applicable to the chosen data structure)
-• Display/Print Data
+• Search FUNCTION
+• About FUNCTION
+
+TO DO: file handling (fstream)
 */
 
 struct Dilemma
