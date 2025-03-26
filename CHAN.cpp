@@ -336,7 +336,7 @@ void save() // OKAY NA
 
     cout
     << ' ' << string(54, '=') << "\n"
-    << "||" << string(21, ' ') <<  "SAVE DATA" << string(21, ' ') << "||" << "\n"
+    << "||" << string(21, ' ') <<  "SAVE DATA" << string(22, ' ') << "||" << "\n"
     << ' ' << string(54, '-') << "\n";
 
     if (size == 0)
@@ -352,13 +352,19 @@ void save() // OKAY NA
     {
         string filename;
 
-        cout << "Enter Filename: ";
+        cout 
+        << string(54, ' ') << "\n"
+        << string(54, ' ') << "\n"
+        << "  Enter Filename: ";
         cin.ignore();
         getline(cin, filename);
+        cout
+        << string(54, ' ') << "\n"
+        << string(54, ' ') << "\n";
+                                    // depends sa kung kung saang directory nyo gusto isave, hindi pare parehas (logic)
+        string directory_ng_file = "C:\\Users\\MyPC\\Desktop\\I.T\\SCHOOL PURPOSES\\.vscode\\.vscode\\console-based proj\\DATAS (!ADMIN ONLY!)\\" + filename + ".txt";
 
-        string directory_ng_file = "C:\\Users\\MyPC\\Desktop\\I.T\\SCHOOL PURPOSES\\.vscode\\.vscode\\console-based proj\\DATAS\\" + filename + ".txt";
-
-        File.open(directory_ng_file, ios::out | ios::app);
+        File.open(directory_ng_file, ios::out);
 
         File << size << "\n";
 
@@ -370,17 +376,17 @@ void save() // OKAY NA
         File.close();
 
         cout
-        << string(54, '-') << "\n"
-        << "  DATA SAVED!" << "\n";
+        << ' ' << string(54, '-') << "\n"
+        << string(22, ' ') <<  "DATA SAVED!" << string(22, ' ')  << "\n";
     }
 
     int save_choice;
     do
     {
         cout
-        << string(54, '-') << "\n"
-        << "               1. Back to Main Menu             " << "\n"
-        << string(54, '=') << "\n"
+        << ' ' << string(54, '-') << "\n"
+        << "||                1. Back to Main Menu                ||" << "\n"
+        << ' ' << string(54, '=') << "\n"
         << "  >>: ";
         cin >> save_choice;
 
