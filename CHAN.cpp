@@ -38,7 +38,7 @@ fstream File;
 Dilemma *dilemmas = nullptr;
 int size = 0;
 
-string toUpper(string text)
+string toUpper(string text) // Just to convert letters in a string to Uppercase (not recommended)
 {
     for (int i = 0; i < text.size(); i++)
     {
@@ -46,7 +46,6 @@ string toUpper(string text)
     }
     return text;
 }
-
 
 int quiting() // !!OKAY NA!!
 {
@@ -357,7 +356,50 @@ void deletion() // TAPOS NA !!
 
 void load()
 {
-    ;    // idk
+    system("cls");
+
+    cout
+    << ' ' << string(54, '=') << "\n"
+    << "||" << string(21, ' ') <<  "LOAD DATA" << string(22, ' ') << "||" << "\n"
+    << ' ' << string(54, '-') << "\n";
+
+    string filename;
+    
+    cout
+    << "Enter file name: ";
+    cin.ignore();
+    getline(cin, filename);
+
+    string directory_ng_file = "C:\\Users\\MyPC\\Desktop\\I.T\\SCHOOL PURPOSES\\.vscode\\.vscode\\console-based proj\\DATAS (!ADMIN ONLY!)\\" + filename + ".txt";
+
+    File.open(directory_ng_file, ios::in);
+
+    if (!File.is_open())
+    {
+        cout
+        << string(54, ' ') << "\n"
+        << string(54, ' ') << "\n"
+        << "             FILE DOESN'T EXIST!             " << "\n"
+        << string(54, ' ') << "\n"
+        << string(54, ' ') << "\n";
+    }
+    else
+    {
+        // bukas ata HAHAHAHAHA
+    }
+
+    int load_op;
+    do
+    {
+        cout
+        << ' ' << string(54, '-') << "\n"
+        << "||                1. Back to Main Menu                ||" << "\n"
+        << ' ' << string(54, '=') << "\n"
+        << "    >>: ";
+        cin >> load_op;
+    } while (load_op != 1);
+
+    return;
 }
 
 void save() // OKAY NA (ata? HAHAHAHA)
@@ -402,7 +444,7 @@ void save() // OKAY NA (ata? HAHAHAHA)
         << "\nDATA SHEET FORMAT: " << "\n"
         << "• DATA/S" << "\n"
         << "• ATTRIBUTES" << "\n"
-        << "  - Category (header)\n  - Dilemma\n  - Solution" << "\n\n";
+        << "  - Category (header)\n  - Dilemma\n  - Solution" << "\n\n\n";
 
         string category[3] = {"Least Severe", "Severe", "Most Severe"};
 
@@ -411,7 +453,7 @@ void save() // OKAY NA (ata? HAHAHAHA)
             bool checker = false;
             string CATEGORY = category[j];
             CATEGORY = toUpper(CATEGORY);
-            File << toUpper(category[j]) << ": \n";
+            File << CATEGORY << ": \n";
             for (int i = 0; i < size; i++)
             {
                 if (dilemmas[i].category == category[j])
