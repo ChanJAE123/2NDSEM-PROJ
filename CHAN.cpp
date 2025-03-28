@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <cctype>
 
 using namespace std;
 
@@ -28,14 +29,23 @@ NOTE: may instances na mag error sa ibang IDE/online compiler since may pre-defi
 struct Dilemma
 {
     string dilemma, category, solution;
-};
+}; // 
 
 // para sa file handling (fstream)
 fstream File;
 
-// declaration ng dynamic structire na array w/ size na
+// declaration ng dynamic structure na array w/ size na
 Dilemma *dilemmas = nullptr;
 int size = 0;
+
+string toUpper(string text)
+{
+    for (int i = 0; i < text.size(); i++)
+    {
+        text[i] = toupper(text[i]);
+    }
+    return text;
+}
 
 
 int quiting() // !!OKAY NA!!
@@ -85,7 +95,8 @@ void display() // !! OKAY NA !!
                 if (dilemmas[j].category == categories[i])
                 {
                     cout
-                    << "   " << counter << ". " << dilemmas[j].dilemma << "\n";
+                    << "   " << counter << ". " << dilemmas[j].dilemma << "\n"
+                    << "   SOLUTION: " << dilemmas[j].solution << "\n";
                     checker = true;
                     counter++;
                 }
@@ -379,8 +390,8 @@ void save() // OKAY NA (ata? HAHAHAHA)
         getline(cin, filename);
         cout
         << string(54, ' ') << "\n"
-        << string(54, ' ') << "\n";
-                                    // depends sa kung kung saang directory nyo gusto isave, hindi pare parehas (logic)
+        << string(54, ' ');
+                                         // depends sa kung kung saang directory nyo gusto isave, hindi pare parehas (logic)
         string directory_ng_file = "C:\\Users\\MyPC\\Desktop\\I.T\\SCHOOL PURPOSES\\.vscode\\.vscode\\console-based proj\\DATAS (!ADMIN ONLY!)\\" + filename + ".txt";
 
         File.open(directory_ng_file, ios::out);
@@ -389,16 +400,35 @@ void save() // OKAY NA (ata? HAHAHAHA)
 
         File
         << "\nDATA SHEET FORMAT: " << "\n"
-        << "Category" << "\n"
-        << "Dilema" << "\n"
-        << "Solution" << "\n\n";
+        << "• DATA/S" << "\n"
+        << "• ATTRIBUTES" << "\n"
+        << "  - Category (header)\n  - Dilemma\n  - Solution" << "\n\n";
 
-        for (int i = 0; i < size; i++)
-        {
-            File << 'C' << i+1 <<  ": " << dilemmas[i].category << "\n";
-            File << dilemmas[i].dilemma << "\n";
-            File << dilemmas[i].solution << "\n";
+        string category[3] = {"Least Severe", "Severe", "Most Severe"};
+
+        for (int j = 0; j < 3; j++)
+        {   
+            bool checker = false;
+            string CATEGORY = category[j];
+            CATEGORY = toUpper(CATEGORY);
+            File << toUpper(category[j]) << ": \n";
+            for (int i = 0; i < size; i++)
+            {
+                if (dilemmas[i].category == category[j])
+                {
+                    File << 'D' << i+1 << ": " << dilemmas[i].dilemma << "\n";
+                    File << 'D' << i+1 << ": " << dilemmas[i].solution << "\n";
+                    File << "\n\n";
+                    checker = true;
+                }
+            }
+            if (!checker)
+            {
+                File << "  - None." << "\n\n";
+            }
         }
+        cout << "\n";
+
         File.close();
 
         cout

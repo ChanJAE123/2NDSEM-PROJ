@@ -1,3 +1,4 @@
-
-    // dilemmas = new Dilemma[size];
-    // int choice;
+struct Dilemma
+{
+    string dilemma, category, solution;
+};
