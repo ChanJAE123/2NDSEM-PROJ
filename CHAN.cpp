@@ -12,16 +12,22 @@ CODE PARTS:
 • Display (Sorted) FUNCTION
 • Insertion (Add Data)
 • Deletion (Remove Data)
+• Load ()
+• Save 
 • Search FUNCTION
 • About FUNCTION
 
-TO DO: file handling (fstream)
+TO DO: 
+• file handling (load)
+• possible solution sa dilemma;
+
+NOTE: may instances na mag error sa ibang IDE/online compiler since may pre-defined functions na di compatible sa iba like "system("cls");"
 
 */
 
 struct Dilemma
 {
-    string dilemma, category;
+    string dilemma, category, solution;
 };
 
 // para sa file handling (fstream)
@@ -69,17 +75,19 @@ void display() // !! OKAY NA !!
         for (int i = 0; i < 3; i++)
         {
             bool checker = false;
+            int counter = 1;
 
             cout
             << "  " << categories[i] << ':' << "\n";
             
             for (int j = 0; j < size; j++)
-            {
+            {   
                 if (dilemmas[j].category == categories[i])
                 {
                     cout
-                    << "   - " << dilemmas[j].dilemma << "\n";
+                    << "   " << counter << ". " << dilemmas[j].dilemma << "\n";
                     checker = true;
+                    counter++;
                 }
             }
 
@@ -156,24 +164,35 @@ void insertion() // GOODS NA
     cin.ignore();
     getline(cin, temp[size].dilemma);
 
+    char firstLetterofSolution;
+    // --
+    do
+    {
+        cout
+        << "  SOLUTION: ";
+        cin.ignore();
+        getline(cin, temp[size].solution);
+
+        firstLetterofSolution = temp[size].solution[0];
+
+        if (!isalpha(firstLetterofSolution))
+        {
+            cout << "  Must Enter a possible solution!\n";
+            continue;
+        }
+    } while (!isalpha(firstLetterofSolution));
+// ---
     string added = temp[size].dilemma;
 
     delete[] dilemmas;
     dilemmas = temp;
     size++;
 
-    if (added.size() <= 30)
-    {
-        cout 
-        << ' ' << string(54, '-') << "\n"
-        << "  DILEMMA ADDED: "<< added <<"\n";
-    }
-    else
-    {
-        cout 
-        << ' ' << string(54, '-') << "\n"
-        << "                  NEW DILEMMA ADDED!                 \n";
-    }
+    cout 
+    << ' ' << string(54, '-') << "\n"
+    << "                   NEW DILEMMA ADDED!                 \n"
+    << "                 WITH POSSIBLE SOLUTION!                 \n";
+    
 
     int ins_op;
     do
@@ -325,12 +344,12 @@ void deletion() // TAPOS NA !!
     }
 }
 
-// void load()
-// {
-        // idk
-// }
+void load()
+{
+    ;    // idk
+}
 
-void save() // OKAY NA
+void save() // OKAY NA (ata? HAHAHAHA)
 {
     system("cls");
 
@@ -366,12 +385,19 @@ void save() // OKAY NA
 
         File.open(directory_ng_file, ios::out);
 
-        File << size << "\n";
+        File << "DILEMA RECORDS" << size << "\n";
+
+        File
+        << "\nDATA SHEET FORMAT: " << "\n"
+        << "Category" << "\n"
+        << "Dilema" << "\n"
+        << "Solution" << "\n\n";
 
         for (int i = 0; i < size; i++)
         {
-            File << dilemmas[i].category << "\n";
+            File << 'C' << i+1 <<  ": " << dilemmas[i].category << "\n";
             File << dilemmas[i].dilemma << "\n";
+            File << dilemmas[i].solution << "\n";
         }
         File.close();
 
@@ -486,6 +512,7 @@ void about() // STILL MISSING INFO (DESCRIPTION/ATBP.)
 }
 
 
+
 int main()
 {
     Dilemma *dilemmas = new Dilemma[0];
@@ -518,7 +545,7 @@ int main()
             case 2: search(); break;
             case 3: insertion(); break;
             case 4: deletion(); break;
-            //case 5: load(); break;
+            case 5: load(); break;
             case 6: save(); break;
             case 7: about(); break;
             case 8: quiting(); exit(0); break;
