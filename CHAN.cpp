@@ -35,7 +35,7 @@ struct Dilemma
 fstream File;
 
 // declaration ng dynamic structure na array w/ size na
-Dilemma *dilemmas = nullptr;
+Dilemma *dilemmas = new Dilemma[0];
 int size = 0;
 
 string toUpper(string text) // Just to convert letters in a string to Uppercase (not recommended)
@@ -385,7 +385,72 @@ void load()
     }
     else
     {
-        // bukas ata HAHAHAHAHA
+        string line;
+        for (int i = 0; i < 10; i++)
+        {
+            getline(File, line);
+        }
+
+        Dilemma *temp = new Dilemma[100];
+        int loaded = 0;
+
+        string current_category;
+        while(getline(File, line))
+        {
+            if (line.find("SEVERE") != string::npos)
+            {
+                if (line.find("MOST") != string::npos)
+                {
+                    current_category = "Most Severe";
+                }
+                else if (line.find("LEAST") != string::npos)
+                {
+                    current_category = "Least Severe";
+                }
+                else
+                {
+                    current_category = "Severe";
+                }
+            }
+            else if (line[0] == 'D')
+            {
+                temp[loaded].category = current_category;
+                temp[loaded].dilemma = line.substr(line.find(": ") + 2);
+                
+                getline(File, line);
+                temp[loaded].solution = line.substr(line.find(": ") + 2);
+
+                
+                loaded++;
+
+                getline(File, line);
+                getline(File, line);
+            }
+        }
+
+        if (loaded > 0)
+        {
+            delete[] dilemmas;
+            dilemmas = new Dilemma[loaded];
+            
+            for (int i = 0; i < loaded; i++)
+            {
+                dilemmas[i] = temp[i];
+            }
+
+            size = loaded;
+        }
+
+        delete[] temp;
+
+        File.close();
+
+        cout
+        << string(54, ' ') << "\n"
+        << string(54, ' ') << "\n"
+        << "                 DATA LOADED!                   " << "\n"
+        << string(54, ' ') << "\n"
+        << string(54, ' ') << "\n";
     }
 
     int load_op;
@@ -459,7 +524,7 @@ void save() // OKAY NA (ata? HAHAHAHA)
                 if (dilemmas[i].category == category[j])
                 {
                     File << 'D' << i+1 << ": " << dilemmas[i].dilemma << "\n";
-                    File << 'D' << i+1 << ": " << dilemmas[i].solution << "\n";
+                    File << 'S' << i+1 << ": " << dilemmas[i].solution << "\n";
                     File << "\n\n";
                     checker = true;
                 }
@@ -587,7 +652,6 @@ void about() // STILL MISSING INFO (DESCRIPTION/ATBP.)
 
 int main()
 {
-    Dilemma *dilemmas = new Dilemma[0];
     int choice;
 
     do
