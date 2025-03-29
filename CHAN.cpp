@@ -18,7 +18,7 @@ array pointer gaamit ko, alternative: vector
 CODE PARTS:
 • Structure
 • toUpper FUNCTION (optional)
-• QUIT FUNCTION (matic required??)
+• QUIT FUNCTION (di req na naka function pa pero need talaga to terminate the program)
 • Display (Sorted) FUNCTION *
 • Insertion (Add Data) FUNCTION *
 • Deletion (Remove Data) FUNCTION *
