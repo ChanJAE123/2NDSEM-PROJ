@@ -7,10 +7,16 @@ using namespace std;
 
 /*
 
-NOTE: * - means required
+NOTES: 
+may instances na mag error sa ibang IDE or online compiler since may 
+pre-defined functions na di compatible sa iba like "system("cls");"
+
+* - means required
+
+array pointer gaamit ko, alternative: vector
 
 CODE PARTS:
-• Structure (alternative: vector)
+• Structure
 • toUpper FUNCTION (optional)
 • QUIT FUNCTION (matic required??)
 • Display (Sorted) FUNCTION *
@@ -25,7 +31,7 @@ TO DO:
 • file handling (load)
 • possible solution sa dilemma;
 
-NOTE: may instances na mag error sa ibang IDE/online compiler since may pre-defined functions na di compatible sa iba like "system("cls");"
+
 
 */
 
@@ -556,7 +562,7 @@ void save() // DONE
     } while (save_choice != 1);
 }
 
-void search() // DI PA
+void search() // DONE
 {
     system("cls");
     cout
@@ -637,7 +643,6 @@ void search() // DI PA
 
     } while (search_op != 1 && search_op != 2);
 }
-
 void about() // STILL MISSING INFO (DESCRIPTION/ATBP.)
 {
     int about_op;
