@@ -7,16 +7,19 @@ using namespace std;
 
 /*
 
+NOTE: * - means required
+
 CODE PARTS:
-• Structure
-• QUIT FUNCTION
-• Display (Sorted) FUNCTION
-• Insertion (Add Data)
-• Deletion (Remove Data)
-• Load ()
-• Save 
-• Search FUNCTION
-• About FUNCTION
+• Structure (alternative: vector)
+• toUpper FUNCTION (optional)
+• QUIT FUNCTION (matic required??)
+• Display (Sorted) FUNCTION *
+• Insertion (Add Data) FUNCTION *
+• Deletion (Remove Data) FUNCTION *
+• Load FUNCTION *
+• Save FUNCTION *
+• Search FUNCTION *
+• About FUNCTION (gusto ko lang)
 
 TO DO: 
 • file handling (load)
@@ -75,7 +78,7 @@ void display() // !! OKAY NA !!
         << string(54, ' ') << "\n"
         << "             EMPTY! No Dilemmas to Display!           " << "\n"
         << string(54, ' ')  << "\n"
-        << string(54, ' ')  << "\n";
+        << string(54, ' ')  << "\n\n";
     }
     else
     {
@@ -95,7 +98,7 @@ void display() // !! OKAY NA !!
                 {
                     cout
                     << "   " << counter << ". " << dilemmas[j].dilemma << "\n"
-                    << "   SOLUTION: " << dilemmas[j].solution << "\n";
+                    << "   SOLUTION: " << dilemmas[j].solution << "\n\n";
                     checker = true;
                     counter++;
                 }
@@ -105,7 +108,7 @@ void display() // !! OKAY NA !!
             {
                 cout << "   - None." << "\n";
             }
-            cout << "\n";
+            cout << "\n\n";
         }
     }
 
@@ -180,7 +183,6 @@ void insertion() // GOODS NA
     {
         cout
         << "  SOLUTION: ";
-        cin.ignore();
         getline(cin, temp[size].solution);
 
         firstLetterofSolution = temp[size].solution[0];
@@ -354,7 +356,7 @@ void deletion() // TAPOS NA !!
     }
 }
 
-void load()
+void load() // DONE
 {
     system("cls");
 
@@ -366,9 +368,11 @@ void load()
     string filename;
     
     cout
-    << "Enter file name: ";
+    << "  File Name: ";
     cin.ignore();
     getline(cin, filename);
+
+    cout << ' ' << string(54, '-') << "\n";
 
     string directory_ng_file = "C:\\Users\\MyPC\\Desktop\\I.T\\SCHOOL PURPOSES\\.vscode\\.vscode\\console-based proj\\DATAS (!ADMIN ONLY!)\\" + filename + ".txt";
 
@@ -379,7 +383,7 @@ void load()
         cout
         << string(54, ' ') << "\n"
         << string(54, ' ') << "\n"
-        << "             FILE DOESN'T EXIST!             " << "\n"
+        << "                  FILE DOESN'T EXIST!             " << "\n"
         << string(54, ' ') << "\n"
         << string(54, ' ') << "\n";
     }
@@ -417,7 +421,7 @@ void load()
                 temp[loaded].category = current_category;
                 temp[loaded].dilemma = line.substr(line.find(": ") + 2);
                 
-                getline(File, line);
+                //getline(File, line);
                 temp[loaded].solution = line.substr(line.find(": ") + 2);
 
                 
@@ -446,11 +450,7 @@ void load()
         File.close();
 
         cout
-        << string(54, ' ') << "\n"
-        << string(54, ' ') << "\n"
-        << "                 DATA LOADED!                   " << "\n"
-        << string(54, ' ') << "\n"
-        << string(54, ' ') << "\n";
+        << "                      DATA LOADED!                   " << "\n";
     }
 
     int load_op;
@@ -467,7 +467,7 @@ void load()
     return;
 }
 
-void save() // OKAY NA (ata? HAHAHAHA)
+void save() // DONE
 {
     system("cls");
 
@@ -481,7 +481,7 @@ void save() // OKAY NA (ata? HAHAHAHA)
         cout
         << string(54, ' ') << "\n"
         << string(54, ' ') << "\n"
-        << "             EMPTY! NO DILEMMAS TO SAVE!             " << "\n"
+        << "               EMPTY! NO DILEMMAS TO SAVE!             " << "\n"
         << string(54, ' ') << "\n"
         << string(54, ' ') << "\n";
     }
@@ -490,14 +490,10 @@ void save() // OKAY NA (ata? HAHAHAHA)
         string filename;
 
         cout 
-        << string(54, ' ') << "\n"
-        << string(54, ' ') << "\n"
-        << "  Enter Filename: ";
+        << "  File Name: ";
         cin.ignore();
         getline(cin, filename);
-        cout
-        << string(54, ' ') << "\n"
-        << string(54, ' ');
+
                                          // depends sa kung kung saang directory nyo gusto isave, hindi pare parehas (logic)
         string directory_ng_file = "C:\\Users\\MyPC\\Desktop\\I.T\\SCHOOL PURPOSES\\.vscode\\.vscode\\console-based proj\\DATAS (!ADMIN ONLY!)\\" + filename + ".txt";
 
@@ -565,29 +561,81 @@ void search() // DI PA
     system("cls");
     cout
     << ' ' << string(54, '=') << "\n"
-    << "Search" << "\n";
+    << "||" << string(21, ' ') <<  "SEARCH DATA" << string(21, ' ') << "||" << "\n"
+    << ' ' << string(54, '-') << "\n";
+
+    if (size == 0)
+    {
+        cout 
+        << string(54, ' ') << "\n"
+        << string(54, ' ') << "\n"
+        << "             EMPTY! No Dilemmas to Search!           " << "\n"
+        << string(54, ' ')  << "\n"
+        << string(54, ' ')  << "\n";
+    }
+    else
+    {
+        string search;
+        cout
+        << "  SEARCH: ";
+        cin.ignore();
+        getline(cin, search);
+
+        cout << ' ' << string(54, '-') << "\n";
+
+        cout
+        << " RELATED DILEMMA/S: \n\n";
+        bool found = false;
+        int counter = 1;
+
+        search = toUpper(search);
+
+        for (int i = 0; i < size; i++)
+        {
+            string upperdilemma = toUpper(dilemmas[i].dilemma);
+
+            if (upperdilemma.find(search) != string::npos)
+            {
+                cout
+                << "  " << counter << ". " << dilemmas[i].dilemma << "\n"
+                << "  CATEGORY: " << dilemmas[i].category << "\n"
+                << "  SOLUTION: " << dilemmas[i].solution << "\n\n";
+                found = true;
+            }
+        }
+
+        if (!found)
+        {
+            cout 
+            << string(54, ' ') << "\n"
+            << string(54, ' ') << "\n"
+            << "             NO MATCHING DILEMMAS FOUND!           " << "\n"
+            << string(54, ' ')  << "\n"
+            << string(54, ' ')  << "\n";
+        }
+    }
+
 
     int search_op;
     do
     {
         cout
         << ' ' << string(54, '-') << "\n"
-        << "|| 1. Back to Main Menu     2. Quit" << "\n"
+        << "|| 1. Search Another              2. Back to Main Menu" << "\n"
         << ' ' << string(54, '-') << "\n"
-        << "|| Enter your choice: ";
+        << " >>: ";
         cin >> search_op;
 
         if (search_op == 1)
         {
-            return;
+            search();
         }
         else if (search_op == 2)
         {
-            quiting();
-            exit(0);
+            return;
         }
 
-    } while (search_op != 1 || search_op != 2);
+    } while (search_op != 1 && search_op != 2);
 }
 
 void about() // STILL MISSING INFO (DESCRIPTION/ATBP.)
