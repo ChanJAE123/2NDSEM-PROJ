@@ -11,6 +11,9 @@ NOTES:
 may instances na mag error sa ibang IDE or online compiler since may 
 pre-defined functions na di compatible sa iba like "system("cls");"
 
+MODIFY CATEGORY and DISPLAY (ADD MORE FUNCTION)
+like: bubble sorting for category of dilemma
+
 * - means required
 
 array pointer gaamit ko, alternative: vector
@@ -27,18 +30,14 @@ CODE PARTS:
 • Search FUNCTION *
 • About FUNCTION (gusto ko lang)
 
-TO DO: 
-• file handling (load)
-• possible solution sa dilemma;
-
-
-
+TO DO: MAKE IT MORE COMPLEX!!
+• 
 */
 
 struct Dilemma
 {
     string dilemma, category, solution;
-}; // 
+};
 
 // para sa file handling (fstream)
 fstream File;
@@ -47,7 +46,7 @@ fstream File;
 Dilemma *dilemmas = new Dilemma[0];
 int size = 0;
 
-string toUpper(string text) // Just to convert letters in a string to Uppercase (not recommended)
+string toUpper(string text) // Just to convert letters sa string to Uppercase (not required)
 {
     for (int i = 0; i < text.size(); i++)
     {
@@ -56,7 +55,7 @@ string toUpper(string text) // Just to convert letters in a string to Uppercase 
     return text;
 }
 
-int quiting() // !!OKAY NA!!
+void quiting() // !!OKAY NA!!
 {
     system("cls");
     cout
@@ -71,6 +70,11 @@ int quiting() // !!OKAY NA!!
 
 void display() // !! OKAY NA !!
 {
+    
+// modify make it look more complex
+// ask first the user if he/she want to display the datas by sorted or by time input;
+
+
     system("cls");
     cout
     << ' ' << string(54, '=') << "\n"
@@ -97,7 +101,7 @@ void display() // !! OKAY NA !!
 
             cout
             << "  " << categories[i] << ':' << "\n";
-            
+
             for (int j = 0; j < size; j++)
             {   
                 if (dilemmas[j].category == categories[i])
@@ -199,8 +203,6 @@ void insertion() // GOODS NA
             continue;
         }
     } while (!isalpha(firstLetterofSolution));
-// ---
-    string added = temp[size].dilemma;
 
     delete[] dilemmas;
     dilemmas = temp;
@@ -701,8 +703,6 @@ void about() // STILL MISSING INFO (DESCRIPTION/ATBP.)
     } while (about_op != 1);
 
 }
-
-
 
 int main()
 {
