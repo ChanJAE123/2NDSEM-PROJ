@@ -31,7 +31,9 @@ CODE PARTS:
 • About FUNCTION (gusto ko lang)
 
 TO DO: MAKE IT MORE COMPLEX!!
-• 
+• UNDO (INSERT & DELETE)
+• DISPLAY FUNCTION ADJUSTMENT (BY CATEGORY or DATETIME ADDED)
+• ENHANCE RESPONSIVENESS (may part pang nag e exceed sa expected dimension lang ng console)
 */
 
 struct Dilemma
@@ -42,7 +44,7 @@ struct Dilemma
 // para sa file handling (fstream)
 fstream File;
 
-// declaration ng dynamic structure na array w/ size na
+// declaration ng dynamic stricture na array w/ size na
 Dilemma *dilemmas = new Dilemma[0];
 int size = 0;
 
@@ -609,6 +611,7 @@ void search() // DONE
                 << "  CATEGORY: " << dilemmas[i].category << "\n"
                 << "  SOLUTION: " << dilemmas[i].solution << "\n\n";
                 found = true;
+                counter++;
             }
         }
 
@@ -677,13 +680,13 @@ void about() // STILL MISSING INFO (DESCRIPTION/ATBP.)
         << "   - Claude 3.5 Sonnet (LLM)" << "\n\n"
 
         << "   Description:" << "\n"
-        << "     This Console-Based Project was developed with AI" << "\n"
-        << "     assistance, using Claude 3.5 Sonnet." << "\n"
+        << "     DISCLAIMER: This Console-Based Project was developed with AI" << "\n"
+        << "     assistance, using Claude 3.5 Sonnet." << "\n\n"
         << "     Kung ano pang madadagdag." << "\n\n"
 
         << "   DATE CREATED: March 2025" << "\n";
 
-        // pilian
+        
         cout
         << ' ' << string(54, '-') << "\n"
         << "||                1. Back to Main Menu                ||" << "\n"
@@ -713,7 +716,8 @@ int main()
         system("cls");
         cout
         << ' ' << string(54, '=') << "\n"
-        << "||       ETHICAL DILEMMA DATA MANAGEMENT SYSTEM       ||" << "\n"
+        << "||                  WELCOME TO                 ||" << "\n"
+        << "||       INTEGRITY CHECK: DATA MANAGEMENT      ||" << "\n"
         << ' ' << string(54, '-') << "\n";
 
         cout 
@@ -721,9 +725,9 @@ int main()
         << "   2. Search Dilemma." << "\n"
         << "   3. Insert New Dilemma." << "\n"
         << "   4. Delete Dilemma." << "\n"
-        << "   5. Load." << "\n"
-        << "   6. Save." << "\n"
-        << "   7. About." << "\n"
+        << "   5. Load a File." << "\n"
+        << "   6. Save a File." << "\n"
+        << "   7. About System." << "\n"
         << "   8. Quit." << "\n"
         << ' ' << string(54, '=') << "\n"
         << "   >>: ";
