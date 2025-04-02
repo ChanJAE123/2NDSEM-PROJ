@@ -17,6 +17,7 @@ This project demonstrates structured programming, array-based sorting, and an in
 
 🚀 Would you like to try the beta version of my program?
 
-<a href="https://github.com/ChanJAE123/2NDSEM-PROJ/blob/main/CHAN.cpp" target="_blank" style="text-decoration: none;">
+CLICK HERE ➡️  <a href="https://github.com/ChanJAE123/2NDSEM-PROJ/blob/main/CHAN.cpp" target="_blank" style="text-decoration: none;">
   <img src="https://img.shields.io/badge/-GitHub-black?logo=github&style=flat-square" alt="GitHub">
 </a>
+or via link: https://github.com/ChanJAE123/2NDSEM-PROJ/blob/main/CHAN.cpp
