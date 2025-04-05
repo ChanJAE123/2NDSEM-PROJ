@@ -18,27 +18,15 @@ like: bubble sorting for category of dilemma
 
 array pointer gaamit ko, alternative: vector
 
-CODE PARTS:
-• Structure
-• toUpper FUNCTION (optional)
-• QUIT FUNCTION (di req na naka function pa pero need talaga to terminate the program)
-• Display (Sorted) FUNCTION *
-• Insertion (Add Data) FUNCTION *
-• Deletion (Remove Data) FUNCTION *
-• Load FUNCTION *
-• Save FUNCTION *
-• Search FUNCTION *
-• About FUNCTION (gusto ko lang)
 
 TO DO: MAKE IT MORE COMPLEX!!
 • UNDO (INSERT & DELETE)
-• DISPLAY FUNCTION ADJUSTMENT (BY CATEGORY or DATETIME ADDED)
-• ENHANCE RESPONSIVENESS (may part pang nag e exceed sa expected dimension lang ng console)
+
 */
 
-struct Dilemma
+struct Dilemma // add timestamp, resolved, author
 {
-    string dilemma, category, solution;
+    string dilemma, category, solution, status, author;
 };
 
 // para sa file handling (fstream)
@@ -47,6 +35,7 @@ fstream File;
 // declaration ng dynamic stricture na array w/ size na
 Dilemma *dilemmas = new Dilemma[0];
 int size = 0;
+
 
 string toUpper(string text) // Just to convert letters sa string to Uppercase (not required)
 {
@@ -81,7 +70,7 @@ void display() // !! OKAY NA !!
     cout
     << ' ' << string(54, '=') << "\n"
     << "||" << string(15, ' ') <<  "ETHICAL DILEMMA DATA/S" << string(15, ' ') << "||" << "\n"
-    << ' ' << string(54, '-') << "\n\n";
+    << ' ' << string(54, '-') << "\n";
 
     if (size == 0)
     {
@@ -90,37 +79,93 @@ void display() // !! OKAY NA !!
         << string(54, ' ') << "\n"
         << "             EMPTY! No Dilemmas to Display!           " << "\n"
         << string(54, ' ')  << "\n"
-        << string(54, ' ')  << "\n\n";
+        << string(54, ' ')  << "\n";
     }
     else
     {
-        string categories[3] = {"Least Severe", "Severe", "Most Severe"};
-
-        for (int i = 0; i < 3; i++)
+        char first_choice;
+        cout << "  BY CATEGORY or STATUS (c/s): ";
+        cin.ignore();
+        cin >> first_choice;
+        cout << ' ' << string(54, '-') << "\n\n";
+    
+        first_choice = toupper(first_choice);
+    
+        if (first_choice == 'C')
         {
-            bool checker = false;
-            int counter = 1;
-
-            cout
-            << "  " << categories[i] << ':' << "\n";
-
-            for (int j = 0; j < size; j++)
-            {   
-                if (dilemmas[j].category == categories[i])
-                {
-                    cout
-                    << "   " << counter << ". " << dilemmas[j].dilemma << "\n"
-                    << "   SOLUTION: " << dilemmas[j].solution << "\n\n";
-                    checker = true;
-                    counter++;
-                }
-            }
-
-            if (!checker)
+            string categories[3] = {"Least Severe", "Severe", "Most Severe"};
+    
+            for (int i = 0; i < 3; i++)
             {
-                cout << "   - None." << "\n";
+                bool checker = false;
+                int counter = 1;
+    
+                cout
+                << "  " << categories[i] << ':' << "\n";
+    
+                for (int j = 0; j < size; j++)
+                {   
+                    if (dilemmas[j].category == categories[i])
+                    {
+                        cout
+                        << "   " << counter << ". " << dilemmas[j].dilemma << "\n"
+                        << "   SOLUTION: " << dilemmas[j].solution << "\n"
+                        << "   STATUS: " << dilemmas[j].status << "\n"
+                        << "   AUTHOR: " << dilemmas[j].author << "\n\n";
+                        checker = true;
+                        counter++;
+                    }
+                }
+    
+                if (!checker)
+                {
+                    cout << "   - None." << "\n";
+                }
+                
+                if (i == 0 || i == 1)
+                {
+                    cout << "  " << string(15, '-') << "\n";
+                }
+                cout << "\n";
             }
-            cout << "\n\n";
+        }
+        else if (first_choice == 'S')
+        {
+            string categories[2] = {"SOLVABLE", "PENDING"};
+    
+            for (int i = 0; i < 2; i++)
+            {
+                bool checker = false;
+                int counter = 1;
+    
+                cout
+                << "  " << categories[i] << ':' << "\n";
+    
+                for (int j = 0; j < size; j++)
+                {   
+                    if (dilemmas[j].status == categories[i])
+                    {
+                        cout
+                        << "   " << counter << ". " << dilemmas[j].dilemma << "\n"
+                        << "   CATEGORY: " << dilemmas[j].category << "\n"
+                        << "   SOLUTION: " << dilemmas[j].solution << "\n"
+                        << "   AUTHOR: " << dilemmas[j].author << "\n\n";
+                        checker = true;
+                        counter++;
+                    }
+                }
+    
+                if (!checker)
+                {
+                    cout << "   - None." << "\n\n";
+                }
+
+                if (i == 0)
+                {
+                    cout << "  " << string(15, '-') << "\n";
+                }
+                cout << "\n";
+            }
         }
     }
 
@@ -189,22 +234,59 @@ void insertion() // GOODS NA
     cin.ignore();
     getline(cin, temp[size].dilemma);
 
-    char firstLetterofSolution;
+
+    char sol;
+    bool SOL = false;
     // --
-    do
+    cout
+    << "  IS THERE A SOLUTION (y/n): ";
+    cin >> sol;
+
+    sol = toupper(sol);
+
+    if (sol == 'Y')
     {
-        cout
-        << "  SOLUTION: ";
-        getline(cin, temp[size].solution);
-
-        firstLetterofSolution = temp[size].solution[0];
-
-        if (!isalpha(firstLetterofSolution))
+        char firstLetterofSolution;
+        do
         {
-            cout << "  Must Enter a possible solution!\n";
-            continue;
-        }
-    } while (!isalpha(firstLetterofSolution));
+            cout
+            << "  SOLUTION: ";
+            cin.ignore();
+            getline(cin, temp[size].solution);
+
+            firstLetterofSolution = temp[size].solution[0];
+
+            if (!isalpha(firstLetterofSolution))
+            {
+                cout << "  Must Enter a possible solution!\n";
+                continue;
+            }
+        } while (!isalpha(firstLetterofSolution));
+        SOL = true;
+    }
+    else
+    {
+        temp[size].solution = "N/A";
+        cin.ignore();
+    }
+
+    if (!SOL) 
+    {
+        temp[size].status = "PENDING";
+    }
+    else
+    {
+        temp[size].status = "SOLVABLE";
+    }
+
+    cout
+    << "  STATUS: " << temp[size].status << "\n";
+
+    cout
+    << "  AUTHOR: ";
+    getline(cin, temp[size].author);
+    cout << "\n";
+
 
     delete[] dilemmas;
     dilemmas = temp;
@@ -212,8 +294,7 @@ void insertion() // GOODS NA
 
     cout 
     << ' ' << string(54, '-') << "\n"
-    << "                   NEW DILEMMA ADDED!                 \n"
-    << "                 WITH POSSIBLE SOLUTION!                 \n";
+    << "                   NEW DILEMMA ADDED!                 \n";
     
 
     int ins_op;
@@ -431,8 +512,14 @@ void load() // DONE
                 temp[loaded].category = current_category;
                 temp[loaded].dilemma = line.substr(line.find(": ") + 2);
                 
-                //getline(File, line);
+                getline(File, line);
                 temp[loaded].solution = line.substr(line.find(": ") + 2);
+
+                getline(File, line);
+                temp[loaded].status = line.substr(line.find(": ") + 2);
+
+                getline(File, line);
+                temp[loaded].author = line.substr(line.find(": ") + 2);
 
                 
                 loaded++;
@@ -531,6 +618,8 @@ void save() // DONE
                 {
                     File << 'D' << i+1 << ": " << dilemmas[i].dilemma << "\n";
                     File << 'S' << i+1 << ": " << dilemmas[i].solution << "\n";
+                    File << 's' << i+1 << ": " << dilemmas[i].status << "\n";
+                    File << 'A' << i+1 << ": " << dilemmas[i].author << "\n\n";
                     File << "\n\n";
                     checker = true;
                 }
@@ -707,6 +796,7 @@ void about() // STILL MISSING INFO (DESCRIPTION/ATBP.)
 
 }
 
+
 int main()
 {
     int choice;
@@ -716,8 +806,8 @@ int main()
         system("cls");
         cout
         << ' ' << string(54, '=') << "\n"
-        << "||                  WELCOME TO                 ||" << "\n"
-        << "||       INTEGRITY CHECK: DATA MANAGEMENT      ||" << "\n"
+        << "||                      WELCOME TO                    ||" << "\n"
+        << "||           INTEGRITY CHECK: DATA MANAGEMENT         ||" << "\n"
         << ' ' << string(54, '-') << "\n";
 
         cout 
